@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: department-service
+        uri: lb://DEPARTMENT-SERVICE
+        predicates:
+        - Path=/api/department/**
+      - id: employee-service
+        uri: lb://EMPLOYEE-SERVICE
+        predicates:
+        - Path=/api/employee/**
+server:
+  port: 7000
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${DISCOVERY_SERVER_ADDRESS:http://localhost:8761/eureka}
